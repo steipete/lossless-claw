@@ -426,6 +426,11 @@ func newBackfillTestDB(t *testing.T) *sql.DB {
 	if err != nil {
 		t.Fatalf("open sqlite db: %v", err)
 	}
+	t.Cleanup(func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("close sqlite db: %v", err)
+		}
+	})
 	setupBackfillTestSchema(t, db)
 	return db
 }
