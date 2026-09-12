@@ -165,6 +165,11 @@ var (
 )
 
 func main() {
+	if len(os.Args) > 1 && (os.Args[1] == "--help" || os.Args[1] == "-h" || os.Args[1] == "help") {
+		fmt.Println("Usage: lcm-tui [repair|backfill|transplant|dissolve|rewrite|doctor|prompts] [options]\n\nWith no command, opens the interactive TUI. Use <command> --help for command options.")
+		return
+	}
+
 	if len(os.Args) > 1 && os.Args[1] == "repair" {
 		if err := runRepairCommand(os.Args[2:]); err != nil {
 			fmt.Fprintf(os.Stderr, "lcm-tui repair failed: %v\n", err)
